@@ -19,11 +19,12 @@ app.listen( port, address );
 //==========================================
 
 
-
-let verbose = true;
 let clients = {
+	"0": "Server",
 };
 let conversation = [];
+let typing = [];
+let verbose = true;
 
 if( verbose ) {
 	
@@ -32,12 +33,6 @@ if( verbose ) {
 
 io.sockets.on( 'connection', function( socket ) {
 	
-	socket.on( 'join', function( username = "John Doe" ) {
-		
-		clients[socket.id] = username;
-		io.sockets.emit( 'message', `${clients[socket.id]} - Is joining.` );
-		socket.emit( 'update', conversation );
-	});
 	////////////////////////
 	socket.on( 'disconnect', function() {
 		
@@ -47,6 +42,7 @@ io.sockets.on( 'connection', function( socket ) {
 			delete clients[socket.id];
 		}
 	});
+	
 	////////////////////////
 	socket.on( 'echo', function( message ) {
 		
@@ -55,6 +51,14 @@ io.sockets.on( 'connection', function( socket ) {
 			io.sockets.emit( 'message', `${clients[socket.id]} - ${message}` );
 		}
 	});
+	
+	socket.on( 'join', function( username = "John Doe" ) {
+		
+		clients[socket.id] = username;
+		io.sockets.emit( 'message', `${clients[socket.id]} - Is joining.` );
+		socket.emit( 'update_conversation', conversation );
+	});
+	
 	////////////////////////
 	socket.on( 'message', function( message ) {
 		
@@ -62,7 +66,28 @@ io.sockets.on( 'connection', function( socket ) {
 			
 			console.log( clients[socket.id] + " has sent " + message );
 			conversation.push( [clients[socket.id], message] );
-			io.sockets.emit( 'update', conversation );
+			io.sockets.emit( 'update_conversation', conversation );
+		}
+	});
+	
+	socket.on( 'start_typing', function() {
+		
+		if( clients[socket.id] !== undefined ) {
+			
+			if( ! typing.includes( clients[socket.id] ) ) {
+				
+				typing.push( clients[socket.id] );
+			}
+			io.sockets.emit( 'update_typing', typing );
+		}
+	});
+	
+	socket.on( 'stop_typing', function() {
+		
+		if( clients[socket.id] !== undefined ) {
+			
+			typing.splice( typing.indexOf( clients[socket.id] ), 1);
+			io.sockets.emit( 'update_typing', typing );
 		}
 	});
 });

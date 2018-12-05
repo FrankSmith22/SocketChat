@@ -41,20 +41,33 @@ html, body{
 	-webkit-overflow-scrolling: touch;
 }
 
+#typingContainer{
+	position: fixed;
+	bottom: 20px;
+	height: 30px;
+	width: 100%;
+	z-index: 1;
+	transition: bottom 1s;
+	background-color: rgba(135, 135, 135, 0.37);
+	text-align: center;
+	vertical-align: middle;
+}
+
+#whoIsTyping {
+	
+	margin: 0;
+}
+
 #messageTyper {
 	
 	box-sizing: border-box;
-	border-top: 1px solid #FFF;
+	/*border-top: 1px solid #FFF;*/
 	bottom: 0;
 	left:0;
 	overflow:hidden;
 	position: fixed;
-	z-index: 1;
+	z-index: 2;
     width: 100vw;
-}
-
-#usernameInput{
-	display: inline;
 }
 
 #txtFieldMessage {
@@ -100,6 +113,10 @@ html, body{
 	place-content: center;	
 	/*==============*/
 	transition: all 0.25s ease;	
+}
+
+#usernameInput{
+	display: inline;
 }
 
 .message {
