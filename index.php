@@ -22,7 +22,7 @@
 		<div id="app">
 			<div id="messagesFeed"></div>
 			<div id="messageTyper">
-				<input id="txtFieldMessage" placeholder="Type message here ... " type="text" />
+				<input id="txtFieldMessage" placeholder="Type message here ..." type="text" />
 			</div>
 		</div>
 		<script>
