@@ -1,0 +1,6 @@
+Additions to be made:
++ "blank" is typing
+	show multiple people typing
+	
+Changes to be made:
++ Fix for mobile
