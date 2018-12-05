@@ -3,7 +3,7 @@
 	"name": "Codiad Chat",
 	"icons": [
 		{
-			"src": "./assets/images/codiadChat.png",
+			"src": "./assets/images/codiadChatLogo192x192.png",
 			"type": "image/png",
 			"sizes": "192x192"
 		}

@@ -18,10 +18,10 @@ app.listen( port, address );
 
 //==========================================
 
+
+
 let verbose = true;
 let clients = {
-	
-	"0": "Server",
 };
 let conversation = [];
 
