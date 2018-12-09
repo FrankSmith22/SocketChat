@@ -1,9 +1,9 @@
 {
 	"short_name": "Chat",
-	"name": "Codiad Chat",
+	"name": "Socket Chat",
 	"icons": [
 		{
-			"src": "./assets/images/codiadChatLogo192x192.png",
+			"src": "assets/images/codiadChatLogo192x192.png",
 			"type": "image/png",
 			"sizes": "192x192"
 		}

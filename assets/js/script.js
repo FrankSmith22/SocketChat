@@ -9,13 +9,14 @@ c = {
 	still_typing: null,
 	
 	async initialize() {
+		
 		L.attachAllElementsById(v);
 		L.noPinchZoom(); //for iOS
 		v.usernameInput.focus();
 		c.username = await c.loginUser();
 		c.load_socket();
 		v.txtFieldMessage.focus();
-		v.txtFieldMessage.addEventListener('keypress', (eventObject)=>{
+		v.txtFieldMessage.addEventListener( 'keydown', ( eventObject ) => {
 			
 			if( c.still_typing ) {
 				
@@ -163,7 +164,7 @@ c = {
 		
 		return new Promise( resolve => {
 			
-			v.usernameInput.onkeypress = function( eventObject ) {
+			v.usernameInput.onkeydown = function( eventObject ) {
 				
 				let username = v.usernameInput.value
 				
@@ -177,4 +178,4 @@ c = {
 		})
 	}
 
-};
+}; 
