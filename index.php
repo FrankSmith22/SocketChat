@@ -1,3 +1,15 @@
+<?php
+/**
+ * Always start the session.
+ */
+session_start();
+
+if( isset( $_POST["login"] ) ) {
+	
+	$_SESSION["username"] = $_POST["username"];
+}
+
+?>
 <!doctype html>
 <html>
 	<head>
@@ -23,9 +35,8 @@
 	</head>
 	<body>
 		<?php
-		if( ! isset( $_SESSION["username"] ) ) {
-			
-			?>
+			if( ! isset( $_SESSION["username"] ) ) {
+		?>
 			<div class="loginContainer">
 				<form class="loginForm" method="post">
 					<label>Username:</label>
@@ -35,17 +46,22 @@
 					<input name="login" type="submit" value="Login" />
 				</form>
 			</div>
-			<?php
-			
+		<?php
 		} else {
-			
-			?>
-			<div id="veil">
-				<div id="veilMessage">
-					Username: <input id="usernameInput" name="usernameInput" placeholder="John Doe" type="text" />
-				</div>
-			</div>
+		?>
+			<!--<div id="veil">
+			</div>-->
 			<div id="app">
+				<div id="landscapeMenu">
+					<div id="landscapeMenuTab">
+						<div id="landscapeTabArrow"></div>
+					</div>
+				</div>
+				<div id="portraitMenu">
+					<div id="portraitMenuTab">
+						<div id="portraitTabArrow"></div>
+					</div>
+				</div>
 				<div id="messagesFeed"></div>
 				<div id="typingContainer">
 					<p id="whoIsTyping"></p>
@@ -55,13 +71,13 @@
 				</div>
 			</div>
 			<script>
-				/*
-					global c
-				*/
+				/*global c*/
+				c.username = `<?php echo $_SESSION["username"];?>`;
 				window.onload = c.initialize;
 			</script>
-			<?php
-		}
+		<?php
+			}
 		?>
 	</body>
 </html>
+

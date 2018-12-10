@@ -18,7 +18,6 @@ app.listen( port, address );
 
 //==========================================
 
-
 let clients = {
 	"0": "Server",
 };
@@ -32,7 +31,7 @@ if( verbose ) {
 }
 
 io.sockets.on( 'connection', function( socket ) {
-	
+
 	////////////////////////
 	socket.on( 'disconnect', function() {
 		
@@ -56,7 +55,9 @@ io.sockets.on( 'connection', function( socket ) {
 		
 		clients[socket.id] = username;
 		io.sockets.emit( 'message', `${clients[socket.id]} - Is joining.` );
+		io.sockets.emit(`update_joining`, clients[socket.id] );			
 		socket.emit( 'update_conversation', conversation );
+	
 	});
 	
 	////////////////////////

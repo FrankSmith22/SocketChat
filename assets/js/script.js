@@ -1,5 +1,11 @@
 /*global L*/
-m = {};
+m = {
+	isJoining: false,
+	isPortrait: false,
+	screenSizeEvents: ["load", "DOMContentLoaded","resize","orientationchange",],
+	hideElement: `display: none`,
+	showElement: `display: block`,
+};
 v = {};
 c = {
 	
@@ -10,32 +16,66 @@ c = {
 	
 	async initialize() {
 		
-		L.attachAllElementsById(v);
-		L.noPinchZoom(); //for iOS
-		v.usernameInput.focus();
-		c.username = await c.loginUser();
-		c.load_socket();
-		v.txtFieldMessage.focus();
-		v.txtFieldMessage.addEventListener( 'keydown', ( eventObject ) => {
+		try{
+			//let window listen for events that change screen orie
+			L.attachAllElementsById(v);	
 			
-			if( c.still_typing ) {
-				
-				clearTimeout( c.still_typing );
-				c.still_typing = null;
-			}
+			c.updateOrientation();			
+			m.screenSizeEvents.forEach(function(eventType){
+				window.addEventListener(eventType, c.updateOrientation);
+			});
 			
-			c.still_typing = setTimeout( function() {
+
+			L.noPinchZoom(); //for iOS
+			c.load_socket();
+			v.txtFieldMessage.focus();
+			v.txtFieldMessage.addEventListener( 'keydown', ( eventObject ) => {
 				
-				socket.emit( "stop_typing" );
-			}, 1000 );
-			socket.emit( "start_typing" );
+				if( c.still_typing ) {
+					
+					clearTimeout( c.still_typing );
+					c.still_typing = null;
+				}
+				
+				c.still_typing = setTimeout( function() {
+					
+					socket.emit( "stop_typing" );
+				}, 1000 );
+				socket.emit( "start_typing" );
+				
+				if( eventObject.keyCode == 13 ) {
+					
+					socket.emit( 'message', v.txtFieldMessage.value );
+					v.txtFieldMessage.value = "";
+				}
+			});			
+		}
+		catch(error){
+			//handle error
+		}
+
+	},
+	/////////////////////////////////
+	updateOrientation(){
+		window.innerHeight >= window.innerWidth 
+			? m.isPortrait = true
+			: m.isPortrait = false
+			c.switchMenus()
+	},
+	/////////////////////////////////
+	switchMenus(){
+		
+		console.log(`is portrait`, m.isPortrait);
+		if (m.isPortrait){
 			
-			if( eventObject.keyCode == 13 ) {
-				
-				socket.emit( 'message', v.txtFieldMessage.value );
-				v.txtFieldMessage.value = "";
-			}
-		});
+			v.portraitMenu.css(m.showElement);
+			v.landscapeMenu.css(m.hideElement);
+		}
+		else if (!m.isPortrait){
+			
+			v.portraitMenu.css(m.hideElement);
+			v.landscapeMenu.css(m.showElement);			
+		}
 	},
 	/////////////////////////////////
 	load_socket() {
@@ -105,9 +145,29 @@ c = {
 			}
 			v.messagesFeed.scrollTo( 0, v.messagesFeed.scrollHeight );
 		});
+		///////////////
+		socket.on( `update_joining`, function( joining ){
+			
+			console.log ( joining );
+			m.isJoining = true;
+			
+			//show popup
+			v.whoIsTyping.innerHTML =  `${joining} is joining`;
+			v.typingContainer.css('bottom: 50px;');
+			
+			//hide popup and, etc.  
+			setTimeout(function(){
+				m.isJoining = false;
+				v.typingContainer.css('bottom: 20px;');
+				v.whoIsTyping.innerHTML = '';
+			}, 1500)
+			
+		})
 		
 		///////////////
 		socket.on( 'update_typing', function( typing ) {
+			
+			if(m.isJoining){ return }
 			
 			console.log( typing );
 			if( typing.length === 0 ) {
@@ -160,6 +220,7 @@ c = {
 		}
 	},
 	/////////////////////
+	/*
 	loginUser() {
 		
 		return new Promise( resolve => {
@@ -171,11 +232,12 @@ c = {
 				if( eventObject.keyCode !== 13 ) { return; }
 				if( username === `` || username === null || username === 'null' || username === 'undefined' || username === undefined) { return; }
 				
-				resolve( username );
 				v.usernameInput.value = ``;
 				c.hideVeil( true );
+				resolve( username );
 			}
 		})
 	}
+	*/
 
 }; 

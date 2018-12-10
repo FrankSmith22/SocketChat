@@ -65,6 +65,55 @@ html, body{
 	overflow: hidden;
 }
 
+/*-------------------------*/
+#landscapeMenu{
+	
+}
+
+#landscapeMenuTab{
+	
+}
+
+#landscapeTabArrow{
+	
+}
+
+#portraitMenu{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	bottom: 100%;
+	z-index: 3;
+	background: #424242;
+}
+
+#portraitMenuTab{
+	position: absolute;
+	top: calc(100% - 7.5vw);
+	left: 50%;
+	transform: translateX(-50%);
+	height: 15vw;
+	width: 15vw;
+	border-radius: 50%;
+	background: #424242;
+	z-index: 4;
+	box-shadow: 0 0 0.5rem black;
+}
+
+#portraitTabArrow{
+	position: absolute;
+	bottom: 20%;
+	left: 0;
+	right: 0;
+	margin: auto;
+	height: 35%;
+	width: 35%;
+	border-left: 1px solid lightgray;
+	border-bottom: 1px solid lightgray;
+	transform: rotateZ(-45deg);
+}
+/*-------------------------*/
+
 #messagesFeed {
 	
 	box-sizing: border-box;
@@ -121,6 +170,7 @@ html, body{
 	height: 50px;
 }
 
+/*
 #veil {
 	display: grid;
 	place-content: center;
@@ -133,25 +183,10 @@ html, body{
 	width: 100%;
 	background: rgba(127,127,127,0.7);
 	overflow: hidden;
-	/*==============*/
 	transition: all 0.25s ease;
 	z-index: 10;
 }
-
-#veilMessage{
-	background: white;
-	height: 15rem;
-	width: 30rem;
-	max-width: 85vw;
-	max-height: 85vh;
-	border-radius: 1rem;
-	box-shadow: 0.5rem 0.5rem 1rem rgb(50,50,50);
-	/*=====================*/
-	display: grid;
-	place-content: center;	
-	/*==============*/
-	transition: all 0.25s ease;	
-}
+*/
 
 #usernameInput{
 	display: inline;
