@@ -67,15 +67,43 @@ html, body{
 
 /*-------------------------*/
 #landscapeMenu{
-	
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	left: 100%;
+	z-index: 3;
+	background: lightblue;
 }
 
 #landscapeMenuTab{
-	
+	position: absolute;
+	top: 50%;
+	right: calc(100% - 7.5vw);
+	transform: translateY(-50%);
+	height: 15vw;
+	width: 15vw;
+	/*
+	max-height: 120px;
+	max-width: 120px;
+	*/
+	border-radius: 50%;
+	background: #424242;
+	z-index: 3;
+	box-shadow: 0 0 0.5rem black;
 }
 
 #landscapeTabArrow{
-	
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 20%;
+	margin: auto;
+	height: 35%;
+	width: 35%;
+	border-left: 1px solid lightgray;
+	border-bottom: 1px solid lightgray;
+	transform: rotateZ(45deg);
 }
 
 #portraitMenu{
@@ -89,14 +117,14 @@ html, body{
 
 #portraitMenuTab{
 	position: absolute;
-	top: calc(100% - 7.5vw);
+	top: calc(100% - 5vw);
 	left: 50%;
 	transform: translateX(-50%);
-	height: 15vw;
-	width: 15vw;
+	height: 10vw;
+	width: 10vw;
 	border-radius: 50%;
 	background: #424242;
-	z-index: 4;
+	z-index: 3;
 	box-shadow: 0 0 0.5rem black;
 }
 
