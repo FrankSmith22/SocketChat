@@ -11,6 +11,7 @@
 html{
 	
 	font-size: calc(0.5vh + 0.5vw + 10px);
+	tap-highlight-color: rgba(0,0,0,0);	
 	user-select: none;
 }
 
@@ -29,12 +30,12 @@ html, body{
 	
 	background-color: #1a1a1a;
 	border:1px solid rgb(100,100,100);
-	width: 95vw;
-	height: 95vw;
+	width: calc(42.5vw + 42.5vh);
+	height: calc(42.5vw + 42.5vh);
 	max-width: 400px;
 	max-height: 400px;
-	min-width: ;
-	min-height: ;
+	min-width: 225px;
+	min-height: 225px;
 	position: absolute;
 	top: 50%;
 	left: 50%;
