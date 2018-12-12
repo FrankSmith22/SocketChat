@@ -5,6 +5,7 @@ m = {
 	screenSizeEvents: ["load", "DOMContentLoaded","resize","orientationchange",],
 	hideElement: `display: none`,
 	showElement: `display: block`,
+	menuActive: false,
 };
 v = {};
 c = {
@@ -14,20 +15,21 @@ c = {
 	loggedIn: false,
 	still_typing: null,
 	
-	async initialize() {
+	initialize() {
 		
 		try{
-			//let window listen for events that change screen orie
-			L.attachAllElementsById(v);	
+			L.attachAllElementsById(v);
 			
+			//let window listen for events that change screen orientation
 			c.updateOrientation();			
-			m.screenSizeEvents.forEach(function(eventType){
+			m.screenSizeEvents.forEach( function( eventType ) {
+				
 				window.addEventListener(eventType, c.updateOrientation);
 			});
-			
-
 			L.noPinchZoom(); //for iOS
 			c.load_socket();
+			v.portraitMenuTab.addEventListener('click', c.toggleMenu);
+			v.landscapeMenuTab.addEventListener('click', c.toggleMenu);
 			v.txtFieldMessage.focus();
 			v.txtFieldMessage.addEventListener( 'keydown', ( eventObject ) => {
 				
@@ -48,12 +50,66 @@ c = {
 					socket.emit( 'message', v.txtFieldMessage.value );
 					v.txtFieldMessage.value = "";
 				}
-			});			
+			});
+
+			document.querySelectorAll(`.logoutButtons`).forEach( button => {
+				button.addEventListener( `click`, c.logout );
+			})
+			
 		}
 		catch(error){
 			//handle error
 		}
 
+	},
+	
+	logout() {
+		
+		console.log( `${c.username} is logging out.` );
+		window.location.href = './index.php?logout';
+	},
+	
+	/////////////////////////////////
+	toggleMenu(eo){
+		if(m.menuActive){
+			if(eo.target.id === "portraitMenuTab" || eo.target.id === "portraitTabArrow"){
+				v.portraitMenu.css('bottom: 100%');
+			}
+			else{
+				v.landscapeMenu.css('left: 100%');
+			}
+			m.menuActive = false
+			c.toggleTabArrow();
+		}
+		else{
+			if(eo.target.id === "portraitMenuTab" || eo.target.id === "portraitTabArrow"){
+				v.portraitMenu.css('bottom: 0');
+			}
+			else{
+				v.landscapeMenu.css('left: 0');
+			}
+			m.menuActive = true;
+			c.toggleTabArrow();
+		}
+	},
+	/////////////////////////////////
+	toggleTabArrow(){
+		if(m.isPortrait){
+			if(m.menuActive){
+				v.portraitTabArrow.css('transform: rotate(135deg); bottom: 40%;');
+			}
+			else{
+				v.portraitTabArrow.css('transform: rotate(-45deg); bottom: 20%;');
+			}
+		}
+		else{
+			if(m.menuActive){
+				v.landscapeTabArrow.css('transform: rotate(-135deg); right: 20%;');
+			}
+			else{
+				v.landscapeTabArrow.css('transform: rotate(45deg); right: 40%;');
+			}
+		}
 	},
 	/////////////////////////////////
 	updateOrientation(){
@@ -64,17 +120,19 @@ c = {
 	},
 	/////////////////////////////////
 	switchMenus(){
-		
 		console.log(`is portrait`, m.isPortrait);
-		if (m.isPortrait){
+		if( m.isPortrait ) {
 			
 			v.portraitMenu.css(m.showElement);
 			v.landscapeMenu.css(m.hideElement);
-		}
-		else if (!m.isPortrait){
+			v.landscapeMenu.css('left: 100%');
+			v.landscapeTabArrow.css("transform: rotateZ(45deg);right: 40%;");
+		} else if(!m.isPortrait) {
 			
 			v.portraitMenu.css(m.hideElement);
-			v.landscapeMenu.css(m.showElement);			
+			v.portraitMenu.css('bottom: 100%');
+			v.landscapeMenu.css(m.showElement);
+			v.portraitTabArrow.css("transform: rotateZ(-45deg);bottom:20%;");
 		}
 	},
 	/////////////////////////////////
@@ -222,7 +280,7 @@ c = {
 	/////////////////////
 	/*
 	loginUser() {
-		
+	
 		return new Promise( resolve => {
 			
 			v.usernameInput.onkeydown = function( eventObject ) {
@@ -239,5 +297,5 @@ c = {
 		})
 	}
 	*/
-
+	
 }; 

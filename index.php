@@ -6,9 +6,26 @@ session_start();
 
 if( isset( $_POST["login"] ) ) {
 	
-	$_SESSION["username"] = $_POST["username"];
+	$username = $_POST["username"];
+	$invalid_usernames = array(
+		"",
+		"null",
+		null,
+		"undefined",
+	);
+	
+	if( ! in_array( $username, $invalid_usernames ) ) {
+		
+		$_SESSION["username"] = $username;
+	}
 }
 
+if( isset( $_GET["logout"] ) ) {
+	
+	unset( $_SESSION["username"] );
+	session_destroy();
+	session_unset();
+}
 ?>
 <!doctype html>
 <html>
@@ -38,9 +55,9 @@ if( isset( $_POST["login"] ) ) {
 			if( ! isset( $_SESSION["username"] ) ) {
 		?>
 			<div class="loginContainer">
-				<form class="loginForm" method="post">
+				<form class="loginForm" action="./index.php" method="post">
 					<label>Username:</label>
-					<input name="username" placeholder="John Doe" type="text" />
+					<input name="username" placeholder="John Doe" type="text" required="required" />
 					<label>Password:</label>
 					<input name="password" placeholder="password" type="password" />
 					<input name="login" type="submit" value="Login" />
@@ -53,11 +70,19 @@ if( isset( $_POST["login"] ) ) {
 			</div>-->
 			<div id="app">
 				<div id="landscapeMenu">
+					<div>Join a private lobby</div>
+					<div>Menu Option</div>
+					<div>Menu Option</div>
+					<div class="logoutButtons">Logout</div>
 					<div id="landscapeMenuTab">
 						<div id="landscapeTabArrow"></div>
 					</div>
 				</div>
 				<div id="portraitMenu">
+					<div>Join a private lobby</div>
+					<div>Menu Option</div>
+					<div>Menu Option</div>
+					<div class="logoutButtons">Logout</div>
 					<div id="portraitMenuTab">
 						<div id="portraitTabArrow"></div>
 					</div>
