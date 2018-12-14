@@ -11,12 +11,12 @@
 html{
 	
 	font-size: calc(0.5vh + 0.5vw + 10px);
-	tap-highlight-color: rgba(0,0,0,0);	
+	tap-highlight-color: rgba(0,0,0,0);
 	user-select: none;
 }
 
 html, body{
-	
+	position: fixed; /*keeps app from "squiggling" around*/
 	background-color: #000000;
 	height: 100%;
 	width: 100%;
@@ -29,7 +29,7 @@ html, body{
 .loginContainer {
 	
 	background-color: #1a1a1a;
-	border:1px solid rgb(100,100,100);
+	border: 1px solid rgb(100,100,100);
 	width: calc(42.5vw + 42.5vh);
 	height: calc(42.5vw + 42.5vh);
 	max-width: 400px;
@@ -41,6 +41,7 @@ html, body{
 	left: 50%;
 	transform: translate(-50%, -50%);
 	border-radius: 50%;
+	box-shadow: 0 0 20px 8px rgb(100,100,100) inset;
 }
 
 .loginForm {
@@ -72,56 +73,16 @@ html, body{
 	width: 100%;
 	overflow: hidden;
 }
-
-/*-------------------------
-#landscapeMenuTab::-moz-selection {
-	
-	background-color:Transparent;
-	color:#000;
-}
-
-#landscapeMenuTab::selection {
-	
-	background-color:Transparent;
-	color:#000;
-}
-
-#landscapeTabArrow::-moz-selection {
-	
-	background-color:Transparent;
-	color:#000;
-}
-
-#landscapeTabArrow::selection {
-	
-	background-color:Transparent;
-	color:#000;
-}
-
-#portraitMenuTab::-moz-selection {
-	
-	background-color:Transparent;
-	color:#000;
-}
-
-#portraitMenuTab::selection {
-	
-	background-color:Transparent;
-	color:#000;
-}
-
-#portraitTabArrow::-moz-selection {
-	
-	background-color:Transparent;
-	color:#000;
-}
-
-#portraitTabArrow::selection {
-	
-	background-color:Transparent;
-	color:#000;
-}
 /*-------------------------*/
+.menuChoices{
+	position: absolute;
+	top: 25%;
+	left: 50%;
+	transform: translate(-50%, 50%);
+	font-size: 1.5rem;
+	cursor: pointer;
+}
+
 #landscapeMenu{
 	position: absolute;
 	height: 100%;
@@ -213,6 +174,21 @@ html, body{
 	user-select: none;
 }
 /*-------------------------*/
+.landscapeMenuOptions, .portraitMenuOptions{
+	
+}
+
+.landscapeMenuOptions{}
+
+.portraitMenuOptions{}
+
+.menuOption{
+	color: white;
+	font-size: 1.5rem;
+	border-radius: 2px;
+	box-shadow: inset;
+	
+}
 
 .logoutButtons{
 	cursor: pointer;
@@ -275,23 +251,11 @@ html, body{
 	height: 50px;
 }
 
-/*
 #veil {
-	display: grid;
-	place-content: center;
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	height: 100%;
-	width: 100%;
-	background: rgba(127,127,127,0.7);
-	overflow: hidden;
-	transition: all 0.25s ease;
-	z-index: 10;
+	
+	display: none;
+	height: 0px;
 }
-*/
 
 #usernameInput{
 	display: inline;
@@ -358,50 +322,18 @@ html, body{
 ::-webkit-scrollbar-thumb:hover {
     background: #555; 
 }
-/*
-#loginScreen{
-	position: absolute;
-}
 
-#mainBanner{
-	height: 10%;
-	width: 100%;
-	font-size: 4rem;
-	background-color: #9ee5da;
-	text-align: center;
+@media (orientation: portrait) {
+	
+	#veil {
+		
+		height: 1px;
+	}
 }
-
-#app{
-	display: grid;
-	place-content: center;
-	height: 100%;
-	width: 80%;
-	position: relative;
-	top: 5%;
-	left: 50%;
-	transform: translateX(-50%);
+@media (orientation: landscape) {
+	
+	#veil {
+		
+		height: 0px;
+	}
 }
-
-#messagesFeed{
-	box-sizing: border-box;
-	height: 100%;
-	width: 100%;
-	background-color: #DEB887;
-	border-style: solid solid solid solid;
-	border-width: 4px 4px 2px 4px;
-	padding: 10px;
-	overflow-y: auto;
-	overflow-x: hidden;
-	word-break: break-all;
-	word-wrap: break-word;
-}
-
-#messageTyper {
-	box-sizing: border-box;
-	height: 10%;
-	width: 100%;
-	background-color: lightgray;
-	border-style: solid solid solid solid;
-	border-width: 2px 4px 4px 4px;
-}
-*/

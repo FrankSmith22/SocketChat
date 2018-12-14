@@ -46,6 +46,7 @@ if( isset( $_GET["logout"] ) ) {
 		<link rel="apple-touch-icon" sizes="180x180" href="./assets/images/codiadChatLogo192x192.png" >
 		
 		<link rel="stylesheet" href="./assets/css/styles.css?v=<?php echo date( "U" );?>">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 		<script src="./assets/js/L.js"></script>
 		<script src="./assets/js/socket.io.js"></script>
 		<script src="./assets/js/script.js?v=<?php echo date( "U" );?>"></script>
@@ -66,23 +67,27 @@ if( isset( $_GET["logout"] ) ) {
 		<?php
 		} else {
 		?>
-			<!--<div id="veil">
-			</div>-->
+			<div id="veil"></div>
 			<div id="app">
 				<div id="landscapeMenu">
-					<div>Join a private lobby</div>
-					<div>Menu Option</div>
-					<div>Menu Option</div>
-					<div class="logoutButtons">Logout</div>
+					<div class="landscapeMenuOptions">
+						<div class="menuOption">Join a private lobby</div>
+						<div class="menuOption">Menu Option</div>
+						<div class="menuOption">Menu Option</div>
+						<div class="logoutButtons menuOption">Logout</div>						
+					</div>
 					<div id="landscapeMenuTab">
 						<div id="landscapeTabArrow"></div>
 					</div>
 				</div>
 				<div id="portraitMenu">
-					<div>Join a private lobby</div>
-					<div>Menu Option</div>
-					<div>Menu Option</div>
-					<div class="logoutButtons">Logout</div>
+					<div class="portraitMenuOptions">
+						<div class="menuOption">Join a private lobby</div>
+						<div class="menuOption">Menu Option</div>
+						<div class="menuOption">Menu Option</div>
+						<div class="logoutButtons menuOption">Logout</div>
+					</div>
+
 					<div id="portraitMenuTab">
 						<div id="portraitTabArrow"></div>
 					</div>
@@ -105,4 +110,3 @@ if( isset( $_GET["logout"] ) ) {
 		?>
 	</body>
 </html>
-

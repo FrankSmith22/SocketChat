@@ -15,13 +15,12 @@ c = {
 	loggedIn: false,
 	still_typing: null,
 	
-	initialize() {
-		
+	initialize(eo) {
 		try{
 			L.attachAllElementsById(v);
 			
 			//let window listen for events that change screen orientation
-			c.updateOrientation();			
+			c.updateOrientation(eo);
 			m.screenSizeEvents.forEach( function( eventType ) {
 				
 				window.addEventListener(eventType, c.updateOrientation);
@@ -33,16 +32,6 @@ c = {
 			v.txtFieldMessage.focus();
 			v.txtFieldMessage.addEventListener( 'keydown', ( eventObject ) => {
 				
-				if( c.still_typing ) {
-					
-					clearTimeout( c.still_typing );
-					c.still_typing = null;
-				}
-				
-				c.still_typing = setTimeout( function() {
-					
-					socket.emit( "stop_typing" );
-				}, 1000 );
 				socket.emit( "start_typing" );
 				
 				if( eventObject.keyCode == 13 ) {
@@ -70,69 +59,71 @@ c = {
 	},
 	
 	/////////////////////////////////
-	toggleMenu(eo){
-		if(m.menuActive){
-			if(eo.target.id === "portraitMenuTab" || eo.target.id === "portraitTabArrow"){
+	toggleMenu( eo ) {
+		if(eo.type === "load"){return}
+		if(eo.type === "click"){
+			if( m.menuActive ){
+				
 				v.portraitMenu.css('bottom: 100%');
-			}
-			else{
 				v.landscapeMenu.css('left: 100%');
-			}
-			m.menuActive = false
-			c.toggleTabArrow();
-		}
-		else{
-			if(eo.target.id === "portraitMenuTab" || eo.target.id === "portraitTabArrow"){
+				m.menuActive = false
+				c.toggleTabArrow();
+				v.txtFieldMessage.focus();
+			} else {
+				
 				v.portraitMenu.css('bottom: 0');
-			}
-			else{
 				v.landscapeMenu.css('left: 0');
+				m.menuActive = true;
+				c.toggleTabArrow();
 			}
-			m.menuActive = true;
-			c.toggleTabArrow();
 		}
 	},
 	/////////////////////////////////
 	toggleTabArrow(){
-		if(m.isPortrait){
-			if(m.menuActive){
-				v.portraitTabArrow.css('transform: rotate(135deg); bottom: 40%;');
-			}
-			else{
-				v.portraitTabArrow.css('transform: rotate(-45deg); bottom: 20%;');
-			}
-		}
-		else{
-			if(m.menuActive){
-				v.landscapeTabArrow.css('transform: rotate(-135deg); right: 20%;');
-			}
-			else{
-				v.landscapeTabArrow.css('transform: rotate(45deg); right: 40%;');
-			}
+		
+		if( m.menuActive ){
+			
+			//arrow is facing up
+			v.portraitTabArrow.css('transform: rotate(135deg); bottom: 40%;');
+			//arrow is facing right
+			v.landscapeTabArrow.css('transform: rotate(-135deg); right: 20%;');
+		} else {
+			//arrow is facing down
+			v.portraitTabArrow.css('transform: rotate(-45deg); bottom: 20%;');
+			//arrow is facing left
+			v.landscapeTabArrow.css('transform: rotate(45deg); right: 40%;');
 		}
 	},
 	/////////////////////////////////
-	updateOrientation(){
-		window.innerHeight >= window.innerWidth 
-			? m.isPortrait = true
-			: m.isPortrait = false
-			c.switchMenus()
+	updateOrientation( eo ) {
+		
+		console.log( window.getComputedStyle( v.veil ).getPropertyValue( 'height' ) )
+		
+		if( window.getComputedStyle( v.veil ).getPropertyValue( 'height' ) == '0px' ) {
+			
+			m.isPortrait = false;
+		} else {
+			
+			m.isPortrait = true;
+		}
+		c.switchMenus( eo );
 	},
 	/////////////////////////////////
-	switchMenus(){
-		console.log(`is portrait`, m.isPortrait);
+	switchMenus( eo ){
 		if( m.isPortrait ) {
 			
+			//c.toggleMenu(eo);
 			v.portraitMenu.css(m.showElement);
 			v.landscapeMenu.css(m.hideElement);
-			v.landscapeMenu.css('left: 100%');
-			v.landscapeTabArrow.css("transform: rotateZ(45deg);right: 40%;");
+			//v.landscapeMenu.css('left: 100%');
+			//v.landscapeTabArrow.css("transform: rotateZ(45deg);right: 40%;");
 		} else if(!m.isPortrait) {
 			
-			v.portraitMenu.css(m.hideElement);
-			v.portraitMenu.css('bottom: 100%');
+			//c.toggleMenu(eo);
 			v.landscapeMenu.css(m.showElement);
-			v.portraitTabArrow.css("transform: rotateZ(-45deg);bottom:20%;");
+			v.portraitMenu.css(m.hideElement);
+			//v.portraitMenu.css('bottom: 100%');
+			//v.portraitTabArrow.css("transform: rotateZ(-45deg);bottom:20%;");
 		}
 	},
 	/////////////////////////////////
