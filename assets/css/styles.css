@@ -84,6 +84,8 @@ html, body{
 }
 
 #landscapeMenu{
+	display: grid;
+	place-content: center;
 	position: absolute;
 	height: 100%;
 	width: 100%;
@@ -175,19 +177,48 @@ html, body{
 }
 /*-------------------------*/
 .landscapeMenuOptions, .portraitMenuOptions{
-	
+	margin: 10px 10px;
 }
 
-.landscapeMenuOptions{}
+.landscapeOptionsHolder{
+	width: 100%;
+	text-align: center;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
 
-.portraitMenuOptions{}
+.portraitOptionsHolder{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.landscapeMenuOptions{
+	display: inline-block;
+}
+
+.portraitMenuOptions{
+	display: block;
+}
 
 .menuOption{
+	height: 100px;
+	width: 300px;
 	color: white;
 	font-size: 1.5rem;
 	border-radius: 2px;
-	box-shadow: inset;
-	
+	box-shadow: 0 0 14px 0px black;
+	/*float: left;*/
+}
+
+.menuOption span{
+	display: inline-block;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 .logoutButtons{

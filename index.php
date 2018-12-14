@@ -70,23 +70,24 @@ if( isset( $_GET["logout"] ) ) {
 			<div id="veil"></div>
 			<div id="app">
 				<div id="landscapeMenu">
-					<div class="landscapeMenuOptions">
-						<div class="menuOption">Join a private lobby</div>
-						<div class="menuOption">Menu Option</div>
-						<div class="menuOption">Menu Option</div>
-						<div class="logoutButtons menuOption">Logout</div>						
+					<div class="landscapeOptionsHolder">
+						<div class="menuOption landscapeMenuOptions"><span>Join a lobby</span></div>
+						<div class="menuOption landscapeMenuOptions"><span>Menu Option</span></div>
+						<div class="menuOption landscapeMenuOptions"><span>Menu Option</span></div>
+						<div class="menuOption landscapeMenuOptions logoutButtons"><span>Logout</span></div>						
 					</div>
 					<div id="landscapeMenuTab">
 						<div id="landscapeTabArrow"></div>
 					</div>
 				</div>
 				<div id="portraitMenu">
-					<div class="portraitMenuOptions">
-						<div class="menuOption">Join a private lobby</div>
-						<div class="menuOption">Menu Option</div>
-						<div class="menuOption">Menu Option</div>
-						<div class="logoutButtons menuOption">Logout</div>
+					<div class="portraitOptionsHolder">
+						<div class="menuOption portraitMenuOptions"><span>Join a lobby</span></div>
+						<div class="menuOption portraitMenuOptions"><span>Menu Option</span></div>
+						<div class="menuOption portraitMenuOptions"><span>Menu Option</span></div>
+						<div class="menuOption portraitMenuOptions logoutButtons"><span>Logout</span></div>
 					</div>
+						
 
 					<div id="portraitMenuTab">
 						<div id="portraitTabArrow"></div>

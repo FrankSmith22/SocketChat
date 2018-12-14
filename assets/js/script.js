@@ -5,6 +5,11 @@ m = {
 	screenSizeEvents: ["load", "DOMContentLoaded","resize","orientationchange",],
 	hideElement: `display: none`,
 	showElement: `display: block`,
+	portraitArrowUp: `transform: rotate(135deg); bottom: 40%;`,
+	portraitArrowDown: `transform: rotate(-45deg); bottom: 20%;`,
+	landscapeArrowLeft: `transform: rotate(45deg); right: 40%;`,
+	landscapeArrowRight: `transform: rotate(-135deg); right: 20%;`,
+
 	menuActive: false,
 };
 v = {};
@@ -82,16 +87,11 @@ c = {
 	toggleTabArrow(){
 		
 		if( m.menuActive ){
-			
-			//arrow is facing up
-			v.portraitTabArrow.css('transform: rotate(135deg); bottom: 40%;');
-			//arrow is facing right
-			v.landscapeTabArrow.css('transform: rotate(-135deg); right: 20%;');
-		} else {
-			//arrow is facing down
-			v.portraitTabArrow.css('transform: rotate(-45deg); bottom: 20%;');
-			//arrow is facing left
-			v.landscapeTabArrow.css('transform: rotate(45deg); right: 40%;');
+			v.portraitTabArrow.css(m.portraitArrowUp);
+			v.landscapeTabArrow.css(m.landscapeArrowRight);
+		} else if( ! m.menuActive ){
+			v.portraitTabArrow.css(m.portraitArrowDown);
+			v.landscapeTabArrow.css(m.landscapeArrowLeft);
 		}
 	},
 	/////////////////////////////////
